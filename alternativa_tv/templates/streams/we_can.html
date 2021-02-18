@@ -1,0 +1,12 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<section>
+    {% image self.image original as img2 %}
+    <a href="#" class="image"><img src="{{ img2.url }}" alt="" data-position="center center" /></a>
+    <div class="content">
+        <div class="inner">
+            <h2>{{ self.name }}</h2>
+            <p>{{ self.about }}</p>
+        </div>
+    </div>
+</section>

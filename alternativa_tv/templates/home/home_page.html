@@ -1,6 +1,8 @@
 <!DOCTYPE HTML>
 <html>
 {% load static wagtailuserbar %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
 
 <head>
     <meta charset="utf-8" />
@@ -30,10 +32,10 @@
         <div class="inner">
             <nav>
                 <ul>
-                    <li><a href="#intro">Кто мы</a></li>
-                    <li><a href="#one">Что мы можем</a></li>
-                    <li><a href="#two">Почему выбирают нас</a></li>
-                    <li><a href="#three">Будем в контакте</a></li>
+                    <li><a href="#intro">{{ self.item1 }}</a></li>
+                    <li><a href="#one">{{ self.item2 }}</a></li>
+                    <li><a href="#two">{{ self.item3 }}</a></li>
+                    <li><a href="#three">{{ self.item4 }}</a></li>
                 </ul>
             </nav>
         </div>
@@ -45,109 +47,29 @@
         <!-- Intro -->
         <section id="intro" class="wrapper style1 fullscreen fade-up">
             <div class="inner">
-                <h1>Альтернатива ТВ</h1>
-                <p>Актуальные решения для рекламы и продвижения вашего продукта.</p>
-                {% comment %} <ul class="actions">
-                    <li><a href="#one" class="button scrolly">Learn more</a></li>
-                </ul> {% endcomment %}
+                <h1>{{ self.company_name }}</h1>
+                <p>{{ self.decription }}</p>
             </div>
         </section>
 
         <!-- One -->
         <section id="one" class="wrapper style2 spotlights">
-            <section>
-                <a href="#" class="image"><img src="{% static 'images/pic01.jpg' %}" alt="" data-position="center center" /></a>
-                <div class="content">
-                    <div class="inner">
-                        <h2>Здравствуйте!</h2>
-                        <p>Мы рекламное агентство Альтернатива ТВ, и мы уверены, что сегодня продвижение вашего продукта
-                            невозможно осуществить без участия в нём лидеров общественного мнения. Мы хотим предложить
-                            вам наиболее эффективные комплексные решение рекламы с привлечением блоггеров.</p>
-                        {% comment %} <ul class="actions">
-                            <li><a href="generic.html" class="button">Learn more</a></li>
-                        </ul> {% endcomment %}
-                    </div>
-                </div>
-            </section>
-            <section>
-                <a href="#" class="image"><img src="{% static 'images/pic02.jpg' %}" alt="" data-position="top center" /></a>
-                <div class="content">
-                    <div class="inner">
-                        <h2>YouTube</h2>
-                        <p>Платформа YouTube стремительно захватывает аудитории разных возрастов и интересов. Мы
-                            предлагаем размещение рекламы у блоггеров развивающихся на этой площадке в виде рекламной
-                            интеграции в ролике или полноценного обзора на ваш продукт.</p>
-                        {% comment %} <ul class="actions">
-                            <li><a href="generic.html" class="button">Learn more</a></li>
-                        </ul> {% endcomment %}
-                    </div>
-                </div>
-            </section>
-            <section>
-                <a href="#" class="image"><img src="{% static 'images/pic03.jpg' %}" alt="" data-position="25% 25%" /></a>
-                <div class="content">
-                    <div class="inner">
-                        <h2>Instagram</h2>
-                        <p>Instagram: современная платформа для продвижения бизнеса. Только в России аудитория
-                            Инстаграма насчитывает уже более 20 млн. пользователей. Мы организуем продвижение вашего
-                            продукта максимально эффективно, привлекая к рекламе наиболее актуальных лидеров мнений.
-                        </p>
-                        {% comment %} <ul class="actions">
-                            <li><a href="generic.html" class="button">Learn more</a></li>
-                        </ul> {% endcomment %}
-                    </div>
-                </div>
-            </section>
+            {% for block in page.what_we_can %}
+            {% include_block block %}
+            {% endfor %}
         </section>
 
         <!-- Two -->
         <section id="two" class="wrapper style3 fade-up">
             <div class="inner">
-                <h2>Почему выбирают нас</h2>
-                {% comment %} <p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu
-                    ultricies erat
-                    malesuada quis. Aliquam dapibus, lacus eget hendrerit bibendum, urna est aliquam sem, sit amet
-                    imperdiet est velit quis lorem.</p> {% endcomment %}
+                <h2>{{ self.why_we_title }}</h2>
                 <div class="features">
-                    <section>
-                        <span class="icon solid major fa-ad"></span>
-                        <h3>Комплексное решение</h3>
-                        <p>Мы предлагаем полный комплекс от разработки основной концепции рекламной кампании до ее
-                            производства.</p>
-                    </section>
-                    <section>
-                        <span class="icon solid major fa-check"></span>
-                        <h3>Гарантированный результат</h3>
-                        <p>ффективность от нашей рекламы легко прогнозируется, а результат отслеживается такими
-                            показателями как количество просмотров и количество переходов по закрепленным ссылкам.</p>
-                    </section>
-                    <section>
-                        <span class="icon solid major fa-hands-helping"></span>
-                        <h3>Индивидуальный подход</h3>
-                        <p>К каждому клиенту мы стараемся найти индивидуальный подход и подойти к решению поставленной
-                            задачи творчески.</p>
-                    </section>
-                    <section>
-                        <span class="icon solid major fa-ruble-sign"></span>
-                        <h3>Конкурентная ценовая политика</h3>
-                        <p>обширная сеть контактов даёт нам конкурентные условия, а вам – гарантию лучшей цены
-                            за запрашиваемую услугу.</p>
-                    </section>
-                    {% comment %} <section>
-                        <span class="icon solid major fa-link"></span>
-                        <h3>Urna quis bibendum</h3>
-                        <p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed
-                            ultricies erat dapibus.</p>
-                    </section>
-                    <section>
-                        <span class="icon major fa-gem"></span>
-                        <h3>Aliquam urna dapibus</h3>
-                        <p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed
-                            ultricies erat dapibus.</p>
-                    </section> {% endcomment %}
+                    {% for block in page.why_we %}
+                    {% include_block block %}
+                    {% endfor %}
                 </div>
                 <ul class="actions">
-                    <li><a href="/blogger" class="button">Блоггерам</a></li>
+                    <li><a href="/blogger" class="button">{{ self.button_name }}</a></li>
                 </ul>
             </div>
         </section>
@@ -155,55 +77,58 @@
         <!-- Three -->
         <section id="three" class="wrapper style1 fade-up">
             <div class="inner">
-                <h2>Контакты</h2>
-                <p>С удовольствием ответим на ваши запросы по следующим средствам связи:</p>
+                <h2>{{ self.contacts }}</h2>
+                <p>{{ self.contacts_text }}</p>
                 <div class="split style1">
                     <section>
-                        <form method="post" action="#">
+                        <form action="{% pageurl page %}" method="POST">
+                            {% csrf_token %}
                             <div class="fields">
                                 <div class="field half">
-                                    <label for="name">Name</label>
-                                    <input type="text" name="name" id="name" />
+                                    <label>Имя</label>
+                                    <input required="required" type="text" name="name" id="id_name" />
                                 </div>
                                 <div class="field half">
-                                    <label for="email">Email</label>
-                                    <input type="text" name="email" id="email" />
+                                    <label>Email</label>
+                                    <input required="required" required="" type="email" name="email" id="id_email" />
                                 </div>
                                 <div class="field">
-                                    <label for="message">Message</label>
-                                    <textarea name="message" id="message" rows="5"></textarea>
+                                    <label>Сообщение</label>
+                                    <textarea name="message" id="id_message" rows="5"></textarea>
+                                </div>
+                                <div class="field">
+                                    <input required="required" type="checkbox" id="demo-copy" name="demo-copy" checked>
+                                    <label>Согласие на обработку персональных данных</label>
                                 </div>
                             </div>
-                            <ul class="actions">
-                                <li><a href="" class="button submit">Send Message</a></li>
-                            </ul>
+
+                           	<input type="submit" value="Отправить" class="button" />
                         </form>
                     </section>
                     <section>
                         <ul class="contact">
                             <li>
-                                <h3>Address</h3>
-                                <span>12345 Somewhere Road #654<br />
-                                    Nashville, TN 00000-0000<br />
-                                    USA</span>
+                                <h3>{{ self.adress }}</h3>
+                                <span>{{ self.adress_text }}</span>
                             </li>
                             <li>
-                                <h3>Email</h3>
-                                <a href="#">user@untitled.tld</a>
+                                <h3>{{ self.email }}</h3>
+                                <a href="#">{{ self.email_text }}</a>
                             </li>
                             <li>
-                                <h3>Phone</h3>
-                                <span>(000) 000-0000</span>
+                                <h3>{{ self.phone }}</h3>
+                                <span><a href="tel:+79215747998"> {{ self.phone_text }} </a></span>
                             </li>
                             <li>
-                                <h3>Social</h3>
+                                <h3>{{ self.social }}</h3>
                                 <ul class="icons">
-                                    <li><a href="#" class="icon brands fa-twitter"><span
-                                                class="label">Twitter</span></a></li>
+                                    {% comment %} <li><a href="#" class="icon brands fa-twitter"><span
+                                                class="label">Twitter</span></a></li> {% endcomment %}
                                     <li><a href="#" class="icon brands fa-facebook-f"><span
                                                 class="label">Facebook</span></a></li>
-                                    <li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a>
-                                    </li>
+                                    {% comment %} <li><a href="#" class="icon brands fa-github"><span
+                                                class="label">GitHub</span></a>
+                                    </li> {% endcomment %}
                                     <li><a href="#" class="icon brands fa-instagram"><span
                                                 class="label">Instagram</span></a></li>
                                     <li><a href="#" class="icon brands fa-linkedin-in"><span
@@ -222,7 +147,7 @@
     <footer id="footer" class="wrapper style1-alt">
         <div class="inner">
             <ul class="menu">
-                <li>&copy; Alternativa-tv. All rights reserved.</li>
+                <li>&copy; {{ self.footer_text }}</li>
                 {% comment %} <li>Design: <a href="http://html5up.net">HTML5 UP</a></li> {% endcomment %}
             </ul>
         </div>
