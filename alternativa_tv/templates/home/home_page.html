@@ -77,8 +77,8 @@
         <!-- Three -->
         <section id="three" class="wrapper style1 fade-up">
             <div class="inner">
-                <h2>{{ self.contacts }}</h2>
-                <p>{{ self.contacts_text }}</p>
+                <h2>{{ self.contact_title}}</h2>
+               <p>{{ self.contacts_text }}</p>
                 <div class="split style1">
                     <section>
                         <form action="{% pageurl page %}" method="POST">
@@ -102,37 +102,20 @@
                                 </div>
                             </div>
 
-                           	<input type="submit" value="Отправить" class="button" />
+                            <input type="submit" value="Отправить" class="button" />
                         </form>
                     </section>
                     <section>
                         <ul class="contact">
+                            {% for block in page.contacts %}
+                            {% include_block block %}
+                            {% endfor %}
                             <li>
-                                <h3>{{ self.adress }}</h3>
-                                <span>{{ self.adress_text }}</span>
-                            </li>
-                            <li>
-                                <h3>{{ self.email }}</h3>
-                                <a href="#">{{ self.email_text }}</a>
-                            </li>
-                            <li>
-                                <h3>{{ self.phone }}</h3>
-                                <span><a href="tel:+79215747998"> {{ self.phone_text }} </a></span>
-                            </li>
-                            <li>
-                                <h3>{{ self.social }}</h3>
+                                <h3>{{ self.social_title }}</h3>
                                 <ul class="icons">
-                                    {% comment %} <li><a href="#" class="icon brands fa-twitter"><span
-                                                class="label">Twitter</span></a></li> {% endcomment %}
-                                    <li><a href="#" class="icon brands fa-facebook-f"><span
-                                                class="label">Facebook</span></a></li>
-                                    {% comment %} <li><a href="#" class="icon brands fa-github"><span
-                                                class="label">GitHub</span></a>
-                                    </li> {% endcomment %}
-                                    <li><a href="#" class="icon brands fa-instagram"><span
-                                                class="label">Instagram</span></a></li>
-                                    <li><a href="#" class="icon brands fa-linkedin-in"><span
-                                                class="label">LinkedIn</span></a></li>
+                                    {% for block in page.social %}
+                            {% include_block block %}
+                            {% endfor %}
                                 </ul>
                             </li>
                         </ul>

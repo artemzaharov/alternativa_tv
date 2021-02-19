@@ -56,26 +56,31 @@ class HomePage(AbstractEmailForm, Page):
     )
     button_name = models.CharField(
         max_length=255, blank=True, help_text='Кнопка Блоггерам')
-    contacts = models.CharField(
-        max_length=255, blank=True, help_text='Контакты')
+
+    contact_title = models.CharField(
+        max_length=255, blank=True, help_text='Заголовок Контакты')
+
     contacts_text = models.CharField(
-        max_length=255, blank=True, help_text='Текст под Контакты')
-    adress = models.CharField(
-        max_length=255, blank=True, help_text='Заголовок Адреса')
-    adress_text = models.CharField(
-        max_length=255, blank=True, help_text='Адрес офиса')
-    email = models.CharField(
-        max_length=255, blank=True, help_text='Заголовок Емэйл')
-    email_text = models.CharField(
-        max_length=255, blank=True, help_text='Адрес Емэйл')    
-    phone = models.CharField(
-        max_length=255, blank=True, help_text='Заголовок Телефон')
-    phone_text = models.CharField(
-        max_length=255, blank=True, help_text='Номер телефона')
-    social = models.CharField(
-        max_length=255, blank=True, help_text='Заголовок Соц.Сети')
-    social_links = models.CharField(
-        max_length=255, blank=True, help_text='Ссылки на соц сети')
+        max_length=255, blank=True, help_text='Текс под заголовком')
+    
+    contacts = StreamField(
+        [
+            ('Contacts', blocks.ContactBlock())
+        ],
+        null=True,
+        blank=True,
+    )
+
+    social_title = models.CharField(
+        max_length=255, blank=True, help_text='Заголовок соц сетей')
+
+    social = StreamField(
+        [
+            ('Contacts', blocks.SocialBlock())
+        ],
+        null=True,
+        blank=True,
+    )
 
     footer_text = models.CharField(
         max_length=255, blank=True, help_text='Все права защищены....')
@@ -83,7 +88,8 @@ class HomePage(AbstractEmailForm, Page):
     # form with email sends
     template = "home/home_page.html"
     landing_page_template = "home/home_page_landing.html"
-    thank_you_text = RichTextField(blank=True)
+    thank_you_text = models.CharField(
+        max_length=255, blank=True, help_text='Текст после отправки формы обратной связи (Спасибо мы с вами свяжемся....)')
     content_panels = AbstractEmailForm.content_panels + Page.content_panels + [
         InlinePanel('custom_form_fields', label="Form fields"),
         FieldPanel('thank_you_text', classname="full"),
@@ -96,16 +102,11 @@ class HomePage(AbstractEmailForm, Page):
         StreamFieldPanel('what_we_can'),
         StreamFieldPanel('why_we'),
         FieldPanel('button_name', classname="full"),
-        FieldPanel('contacts', classname="full"),
+        FieldPanel('contact_title', classname="full"),
         FieldPanel('contacts_text', classname="full"),
-        FieldPanel('adress', classname="full"),
-        FieldPanel('adress_text', classname="full"),
-        FieldPanel('email', classname="full"),
-        FieldPanel('email_text', classname="full"),
-        FieldPanel('phone', classname="full"),
-        FieldPanel('phone_text', classname="full"),
-        FieldPanel('social', classname="full"),
-        FieldPanel('social_links', classname="full"),
+        StreamFieldPanel('contacts'),
+        FieldPanel('social_title', classname="full"),
+        StreamFieldPanel('social'),
         FieldPanel('footer_text', classname="full"),
         MultiFieldPanel([
             FieldRowPanel([
@@ -121,4 +122,36 @@ class HomePage(AbstractEmailForm, Page):
 
 
 class FlexPage(Page):
-    pass
+    template = "home/flex_page.html"
+    description = models.CharField(max_length=255, blank=True, help_text='Заголовок') 
+    flex_image = models.ForeignKey(
+        "wagtailimages.Image", 
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text='Большое фото'
+        )
+    text = models.TextField(blank=True, help_text='Текст после картинки')
+    pluses = models.CharField(max_length=255, blank=True, help_text='Что мы предлагаем') 
+    plus_list = StreamField(
+        [
+            ('Plus', blocks.PlusBlock())
+        ],
+        null=True,
+        blank=True,
+    )
+    last_text = models.TextField(blank=True, help_text='Текст внизу')
+    footer_text = models.CharField(
+        max_length=255, blank=True, help_text='Все права защищены....')
+
+
+    content_panels = Page.content_panels + [
+        FieldPanel('description', classname="full"),
+        ImageChooserPanel('flex_image'),
+        FieldPanel('text', classname="full"),
+        FieldPanel('pluses', classname="full"),
+        StreamFieldPanel('plus_list'),
+        FieldPanel('last_text', classname="full"),
+        FieldPanel('footer_text', classname="full"),
+    ]

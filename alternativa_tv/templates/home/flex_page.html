@@ -1,6 +1,8 @@
 <!DOCTYPE HTML>
 <html>
 {% load static wagtailuserbar %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
 
 <head>
     <meta charset="utf-8" />
@@ -44,22 +46,22 @@
         <!-- Main -->
         <section id="main" class="wrapper">
             <div class="inner">
-                <h1 class="major">Блоггерам</h1>
-                <span class="image fit"><img src="{% static 'images/pic04.jpg' %}" alt="" /></span>
-                <p>Мы находимся в постоянном поиске авторов с новыми творческими идеями (чем идея более сумасшедшая, тем
-                    лучше) с целью взаимовыгодного сотрудничества </p>
+                <h1 class="major">{{ self.description }}</h1>
+                {% image self.flex_image original as img %}
+                <span class="image fit"><img src="{{ img.url }}" alt="" /></span>
+                <p>{{ self.text }}</p>
                 {% comment %} <h2>Lists</h2> {% endcomment %}
                 <div class="row">
                     <div class="col-6 col-12-medium">
-                        <h3>Мы предлагаем:</h3>
+                        <h3>{{ self.pluses }}</h3>
                         <ul>
-                            <li>клиентскую базу рекламодателей.</li>
-                            <li>юридическую поддержку.</li>
-                            <li>помощь в производстве контента, в том числе и привлечение  инвестиций.</li>
+                           {% for block in page.plus_list %}
+            {% include_block block %}
+            {% endfor %}
                         </ul>
                     </div>
                 </div>
-                 <h2>Если мы еще не связались с вами, просим восполнить это упущение самостоятельно и написать нам на:  или позвонить +7 921 574 79 98</h2>
+                 <h2>{{ self.last_text }}</h2>
             </div>
         </section>
 
@@ -69,8 +71,7 @@
     <footer id="footer" class="wrapper alt">
         <div class="inner">
             <ul class="menu">
-                <li>&copy; Untitled. All rights reserved.</li>
-                <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+                <li>&copy; {{ self.footer_text }}</li>
             </ul>
         </div>
     </footer>
