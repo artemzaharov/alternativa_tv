@@ -107,9 +107,22 @@
                     </section>
                     <section>
                         <ul class="contact">
-                            {% for block in page.contacts %}
+                         <li>
+     <h3>телефон</h3>
+     <a href="tel:+79215747998">+79215747998</a>
+ </li>
+ <li>
+     <h3>почта</h3>
+     <a href="mailto:info@alternativatv.ru">info@alternativatv.ru</a>
+ </li>
+ <li>
+     <h3>адрес</h3>
+     <a href="https://yandex.ru/maps/-/CCUQjYb49A">195027, Россия, Санкт-Петербург, Свердловская набережная, дом 38, Бизнес-парк «Полюстрово»</a>
+ </li>
+
+                            {% comment %} {% for block in page.contacts %}
                             {% include_block block %}
-                            {% endfor %}
+                            {% endfor %} {% endcomment %}
                             <li>
                                 <h3>{{ self.social_title }}</h3>
                                 <ul class="icons">
